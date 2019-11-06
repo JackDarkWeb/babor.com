@@ -17,8 +17,10 @@ abstract class Helper
      */
     static function paginate($count){
         $out = '';
-        for($i = 1; $i <= ceil($count/4); $i++){
-            $out = "<li class='page-item mr-2 $i === $page ? echo active '><a id='page$i' class='page-link rounded-circle' href='?page=$i'>$i <span class='sr-only'>(current)</span></a></li><br/>";
+
+        for($i = 1; $i <= ($count/4); $i++){
+
+            $out = '<li class="page-item mr-2"><a id="page'.$i.'" class="page-link rounded-circle" href="?page='.$i.'">'.$i.'<span class="sr-only">(current)</span></a></li><br/>';
         }
         return $out;
     }
@@ -27,7 +29,7 @@ abstract class Helper
      * @param $timestamp
      * @return string
      */
-    function time_ago($timestamp)
+    static function time_ago($timestamp)
     {
         $time_ago = strtotime($timestamp);
         $current_time = time();
@@ -109,12 +111,16 @@ abstract class Helper
         return $out;
     }
 
-    /**
-     * @param $path
-     */
-    static function redirect($path){
-        $path = str_replace('.', DS, $path);
-        header('Location:'.$path);
+    static function slug($string):string {
+
+        $str = '';
+        $string = strtolower($string);
+
+        if($string !== ''){
+            $str = explode(' ', $string);
+            $str = implode('-', $str);
+        }
+        return (str_replace("'", '-', $str));
     }
 
 }

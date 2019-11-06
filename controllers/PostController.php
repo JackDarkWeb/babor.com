@@ -8,7 +8,7 @@ class PostController extends Controller
         $post = new Post();
         $posts = $post->findAll();
 
-        $this->render('posts.index',[
+        $this->view('posts.index',[
             'posts' => $posts,
         ]);
     }
@@ -22,7 +22,7 @@ class PostController extends Controller
             $post = new Post();
             $posts = $post->findAll();
 
-            $this->render('posts.index',[
+            $this->view('posts.index',[
                 'posts' => $posts,
             ]);
 
@@ -35,7 +35,7 @@ class PostController extends Controller
                 $this->e404("Product $id not found");
             }
 
-            $this->render('posts.show',[
+            $this->view('posts.show',[
                 'post' => $postId,
             ]);
         }
