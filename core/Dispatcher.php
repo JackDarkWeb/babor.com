@@ -30,8 +30,6 @@ class Dispatcher
         # Render default
         $controller->view($this->request->action);
         //print_r($this->request);
-
-
     }
 
     /**

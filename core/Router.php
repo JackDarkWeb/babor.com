@@ -17,8 +17,6 @@ class Router
 
         $url = trim($url, '/');
 
-
-
         foreach (Router::$routes as $val_routes){
 
             if(preg_match($val_routes['catcher'], $url, $match)){
@@ -133,11 +131,11 @@ class Router
                     }
                 }
 
-                return DS.$value['redirect'];
+                return '/'.$value['redirect'];
                 //dd($match);
             }
         }
-        return DS.$url;
+        return '/'.$url;
     }
 
 }

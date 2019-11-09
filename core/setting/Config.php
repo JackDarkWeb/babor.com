@@ -8,7 +8,7 @@ class Config
     static $databases = [
         'dev' => [
             'host' => '127.0.0.1',
-            'dbname' => 'management@consulting',
+            'dbname' => 'babor_com',
             'user' => 'root',
             'password' => ''
         ],
@@ -25,6 +25,3 @@ class Config
 }
 
 include 'web.php';
-
-
-

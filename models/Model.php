@@ -39,8 +39,8 @@ abstract class Model extends Db
         return ($this->action('SELECT *', $this->table, ['id', '=', $id])
             ->results()[0]);
     }
-    public function find(array $condition){
-        return $this->action('SELECT *', $this->table, $condition)
+    public function find(array $where){
+        return $this->action('SELECT *', $this->table, $where)
             ->results()[0];
     }
 
@@ -116,7 +116,36 @@ abstract class Model extends Db
 
 
 
+    /**
+     * @param array $fields
+     * @return bool
+     */
+    function insert($fields = []){
 
+        $keys   = array_keys($fields);
+        $values = '';
+        $x      = 1;
+
+        foreach ($fields as $field){
+
+            $values .=  '?';
+
+            if($x < count($fields)){
+
+                $values .= ', ';
+            }
+            $x++;
+        }
+
+        $sql  = "INSERT INTO {$this->table}(`".implode('`,`', $keys)."`) VALUES({$values})";
+        //return $fields; die(1);
+        if(!$this->query($sql, $fields)->error()){
+
+            return true;
+        }
+
+        return false;
+    }
 
 
     /**
