@@ -51,7 +51,7 @@ $(function(){
 
     });
 
-    $(document).on('keyup', '#password', function () {
+    $(document).on('blur', '#password', function () {
 
         let pass = $(this).val();
 
@@ -105,11 +105,11 @@ $(function(){
                     if(data.email){
 
                         $('.error-email').html(data.email).show();
-                        $('.process, .error-pass').hide();
+                        $('.process, .error-password').hide();
 
                     }else if(data.password){
 
-                        $('.error-pass').html(data.password).show();
+                        $('.error-password').html(data.password).show();
                         $('.process, .error-email').hide();
 
                     }else if(data.success){

@@ -39,6 +39,7 @@
 
     <div class="col-lg-6 offset-lg-3 col-sm-8 offset-sm-2 singup-content pb-5">
 
+        <div class="result"></div>
         <?= ($this->message_flash('message')) ? $this->message_flash('message') : ''?>
 
         <div class="row">
@@ -59,12 +60,12 @@
                         </div>
                         <div class="form-group row mb-4">
                             <div class="col-sm-4">
-                                <select name="day" id="day" class="row form-control" style="<?= ($this->error('day')) ? "border-color : red" : ''?>">
+                                <select name="day" id="day" class="row form-control" style="<?= ($this->error('day') || $this->error('date')) ? "border-color : red" : ''?>">
                                     <option>Jour...</option>
 
                                     <?php for($i = 1; $i <= 31; $i++):?>
 
-                                        <option value="<?=$i?>" <?=($this->post('day') === $i)? 'selected = selected' : ''?>><?=$i?></option>
+                                        <option value="<?=$i?>" <?=($this->post('day') === $i)? 'selected' : ''?>><?=$i?></option>
 
                                      <?php endfor;?>
 
@@ -72,19 +73,19 @@
                             </div>
 
                             <div class="col-sm-4">
-                                <select class="row form-control" id="month" name="month" style="<?= ($this->error('month')) ? "border-color : red" : ''?>">
+                                <select class="row form-control" id="month" name="month" style="<?= ($this->error('month') || $this->error('date')) ? "border-color : red" : ''?>">
                                     <option>Mois...</option>
 
                                     <?php foreach ($this->months as $key => $month):?>
 
-                                        <option value="<?=$key?>" <?=($this->post('month') === $key)? 'selected = selected' : ''?>><?=$month?></option>
+                                        <option value="<?=$key?>" <?=($this->post('month') === $key)? 'selected' : ''?>><?=$month?></option>
 
                                     <?php endforeach;?>
 
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" name="year" id="year" class="row form-control"  placeholder="Année..." value="<?= $this->post('year')?>" pattern="^(19|20)[0-9]{2}" style="<?= ($this->error('year')) ? "border-color : red" : ''?>"/>
+                                <input type="text" name="year" id="year" class="row form-control"  placeholder="Année..." value="<?= $this->post('year')?>" pattern="^(19|20)[0-9]{2}" style="<?= ($this->error('year') || $this->error('date')) ? "border-color : red" : ''?>"/>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -96,11 +97,11 @@
                         </div>
 
                         <div class="form-check form-check-inline mb-4 mr-5">
-                            <input class="form-check-input" type="radio" name="sexy" id="inlineRadio1" value="male" <?=($this->post('sexy') === 'male')? 'checked' : ''?>>
+                            <input class="form-check-input" type="radio" name="sexy" id="inlineRadio1" value="male" <?=($this->post('sexy') === 'male')? 'checked' : ''?>/>
                             <label class="form-check-label" for="inlineRadio1">Homme</label>
                         </div>
                         <div class="form-check form-check-inline mb-4" id="radio">
-                            <input class="form-check-input" type="radio" name="sexy" id="inlineRadio2" value="female" <?=($this->post('sexy') === 'female')? 'checked' : ''?>>
+                            <input class="form-check-input" type="radio" name="sexy" id="inlineRadio2" value="female" <?=($this->post('sexy') === 'female')? 'checked' : ''?>/>
                             <label class="form-check-label" for="inlineRadio2">Femme</label>
                         </div>
                         <span class="text-danger error-sex font-italic"><?= $this->error("sexy")?></span>

@@ -1,24 +1,31 @@
 <?php
 
 
-abstract class Helper
+class Helper
 {
     static public $page;
 
 
-    function __construct()
+    function __construct($request)
     {
-        //self::$page = $this->request->page;
+        self::$page = $request->page;
     }
 
     /**
+     *  $i === $page ? echo active
      * @param $count
      * @return string
      */
     static function paginate($count){
         $out = '';
-        for($i = 1; $i <= ceil($count/4); $i++){
-            $out = "<li class='page-item mr-2 $i === $page ? echo active '><a id='page$i' class='page-link rounded-circle' href='?page=$i'>$i <span class='sr-only'>(current)</span></a></li><br/>";
+        $p   = self::$page;
+
+
+        for($i = 1; $i <= ceil($count/8); $i++){
+
+            $v  = ($i == $p) ? 'active' : '';
+
+            $out .= "<li class='page-item mr-2 $v'><a id='page$i' class='page-link rounded-circle' href='?page=$i'>$i <span class='sr-only'>(current)</span></a></li><br/>";
         }
         return $out;
     }
@@ -123,6 +130,16 @@ abstract class Helper
             $str = implode('-', $str);
         }
         return (str_replace("'", '-', $str));
+    }
+
+
+    static function city_country($user)
+    {
+
+        $detach = explode(',', $user->location);
+        $city = ucfirst($detach[0]);
+        $country = strtoupper(end($detach));
+        return (object)['city' => $city, 'country' => $country];
     }
 
 

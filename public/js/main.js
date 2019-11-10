@@ -155,15 +155,17 @@ $(function () {
     });
 
     $(document).on('submit', '#form-register', function () {
-        let form = $(this);
-        let name = form.find('#name').val();
-        let day = form.find('#day').val();
-        let month = form.find('#month').val();
-        let year = form.find('#year').val();
-        let genre = sex;
-        let location = form.find('#location').val();
-        let email = form.find('#email').val();
-        let pass = form.find('#password').val();
+        let form = $(this),
+            name = form.find('#name').val(),
+            day = form.find('#day').val(),
+            month = form.find('#month').val(),
+            year = form.find('#year').val(),
+            sexy = sex,
+            location = form.find('#location').val(),
+            email_or_phone = form.find('#email').val(),
+            password = form.find('#password').val();
+
+        const ajax = true;
 
         let filter = /^[0-9]+$/;
         //alert(error_year)
@@ -184,35 +186,36 @@ $(function () {
             if(location === ''){
                 requiredMessage('.error-location', 'Field location is required');
             }
-            if(email === ''){
+            if(email_or_phone === ''){
                 requiredMessage('.error-email', 'Field email or phone is required');
             }
-            if(pass === ''){
+            if(password === ''){
                 requiredMessage('.error-password', 'Field password is required');
             }
             return false;
         }else{
 
             $.ajax({
-                url:'controllers/main.php',
+                url:'/user/register',
                 method:'POST',
                 dataType:'json',
                 async: true,
                 cache:false,
-                data:{name:name,day:day,month:month,year:year,location:location,genre:genre,email:email,pass:pass},
-                success:function (data) {
-                    if(data.error){
-                        alertMessage('#email', '.error-email', data.error);
-                    }else if(data.error_save){
-                        $('.error-save').html(data.error_save).show();
+                data:{name:name,day:day,month:month,year:year,location:location,sexy:sexy,email_or_phone:email_or_phone,password:password, ajax:ajax},
+                success:function (response) {
+                    if(response.error === true){
+
+                        $('.result').html(response.message);
+
                     }else{
-                        deleteMessage('.error-email');
-                        const uri = window.location.href;
-                        //let detach = uri.split('/');
-                        const path = uri.replace('main.php', '?view');
-                        window.location.href = path+'=login';
+                        $('.result').html(response.message);
+                        $('#form-register').find('#name, #day, #month, #year, #email, #location, #password').val('');
                     }
-                }
+                },
+                error: function (resp, status, error) {
+                    $('.result').html(error);
+                    //console.log(resp);
+                },
             });
             return false;
         }

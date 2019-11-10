@@ -219,12 +219,12 @@ class Book
 
 
     /**
-     * @param $date
+     * @param object $user
      * @return int
      */
-    static function getAge($date){
+    function getAge($user){
 
-        $date  = explode('/', $date);
+        $date = [$user->day, $user->month, $user->year];
         $toDay = explode('/', date('d/m/Y'));
 
         if($date[1] < $toDay[1] || ($date[1] == $toDay[1] && $date[0] <= $toDay[0] )){
@@ -236,12 +236,12 @@ class Book
     }
 
     /**
-     * @param $date
+     * @param object $user
      * @return string
      */
-    static function getBirthDay($date){
+    function getBirthDay($user){
 
-        $date  = explode('/', $date);
+        $date = [$user->day, $user->month, $user->year];
         $toDay = explode('/', date('d/m/Y'));
 
         if($date[1] == $toDay[1] && $date[0] == $toDay[0]){

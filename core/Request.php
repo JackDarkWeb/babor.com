@@ -17,6 +17,8 @@ class Request
      * @var float
      */
     public $page = 1;
+    public $q    = null;
+    public $v    = null;
 
     function __construct()
     {
@@ -28,8 +30,19 @@ class Request
             if(is_numeric($_GET['page'])){
 
                 if($_GET['page'] > 0)
-                  $this->page = round($_GET['page']);
+                  $this->page = round(filter_var($_GET['page'], FILTER_SANITIZE_URL));
             }
+
+        }
+
+        if(isset($_GET['q']) || isset($_GET['v'])){
+
+            $this->q = filter_var($_GET['q'], FILTER_SANITIZE_URL);
+        }
+
+        if(isset($_GET['v'])){
+
+            $this->v = filter_var($_GET['v'], FILTER_SANITIZE_URL);
         }
     }
 }

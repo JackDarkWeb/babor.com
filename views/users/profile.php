@@ -1,4 +1,7 @@
 
+<?if (isset($user)):?>
+
+<?$title_for_site = $user->name?>
 
 <div class="d-none d-sm-block singin-nav" style="background: #9d1e65;">
     <div class="px-5">
@@ -54,7 +57,7 @@
                             <a href="" class='col-3'><img src="<?=assets('images.avatar')?>" class='img-fluid' ></a>
 
                             <a href="" class="nav-link text-dark col-9">
-                                <span class='font-weight-bold'>Nom</span>
+                                <span class='font-weight-bold'><?=$user->name?></span>
                             </a>
                         </div>
 
@@ -116,8 +119,10 @@
 
                         <h4 class='row'>
                             <a href="" class="nav-link text-dark">
-                                <span>Nom</span>,
-                                <span>Age</span></a>
+                                <span><?=$user->name?></span>,
+                                <span><?=$user->age?></span>
+                                <span class="text-info">  <?=($user->birthDay)?>  </span>
+                            </a>
                         </h4>
 
                     </div>
@@ -147,3 +152,5 @@
         </div>
     </div>
 </div>
+
+<?endif;?>

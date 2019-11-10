@@ -203,6 +203,19 @@ class Validator extends Book
     }
 
     /**
+     * @param int $month
+     * @param int $day
+     * @param int $year
+     * @return bool
+     */
+    public function check_date($month, $day, $year){
+        if(!checkdate($month, $day, $year))
+            $this->errors['date'] = "The date format is incorrect";
+        else
+            return true;
+    }
+
+    /**
      * @param string $name
      * @return string
      */
@@ -311,13 +324,18 @@ class Validator extends Book
 
     /**
      * @param $name
+     * @return bool
      */
     public function remember($name){
+
         $value = $this->post($name);
+
         if($value == 1){
-            setcookie('remember', 'true', time() + 3600);
+            return true;
         }
+        return false;
     }
+
 
     /**
      * @param string $name

@@ -11,6 +11,7 @@ class Dispatcher
 
         # Injection Request object
         Router::parse($this->request->url, $this->request);
+        (new Helper($this->request));
 
         # Instantiation $controllerController object
         $controller = $this->loadController();

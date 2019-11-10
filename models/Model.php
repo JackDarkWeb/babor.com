@@ -103,7 +103,7 @@ abstract class Model extends Db
             }
         }else{
 
-            $sql = "{$action} FROM {$table}";
+            $sql = "{$action} FROM {$table} ORDER BY id DESC";
             if(!$this->query($sql, [])->error()){
 
                 return $this;
@@ -114,7 +114,49 @@ abstract class Model extends Db
     }
 
 
+    /**
+     * @param $action
+     * @param $table
+     * @param array $wheres
+     * @return $this|bool
+     */
+    private function builderAction($action, $table, $wheres = []){
 
+        if(count($wheres) === 7){
+            $operators = ['=', '!=', '<', '>', '<=', '>=', 'AND', 'OR'];
+
+            $field_first    = $wheres[0];
+            $field_second    = $wheres[4];
+            $operator_first = $wheres[1];
+            $operator_second = $wheres[5];
+            $value_first    = $wheres[2];
+            $value_second    = $wheres[6];
+            $logique  = strtoupper($wheres[3]);
+
+            if(in_array($operator_first, $operators) && in_array($operator_second, $operators) && in_array($logique, $operators)){
+
+                $sql = "{$action} FROM {$table} WHERE {$field_first} {$operator_first} ?  {$logique} {$field_second} {$operator_second} ?";
+
+
+                if(!$this->query($sql, [$value_first, $value_second])->error()){
+
+
+                    return $this;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * @param array $array
+     * @return mixed
+     */
+    public function builderGet(array $array)
+    {
+        return $this->builderAction('SELECT *', $this->table, $array)->results();
+    }
 
     /**
      * @param array $fields
@@ -139,6 +181,44 @@ abstract class Model extends Db
 
         $sql  = "INSERT INTO {$this->table}(`".implode('`,`', $keys)."`) VALUES({$values})";
         //return $fields; die(1);
+        if(!$this->query($sql, $fields)->error()){
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param $where
+     * @param array $fields
+     * @return bool
+     */
+    function update($where, $fields = []){
+
+        $pattern = "/^[0-9]+$/";
+        $column = (preg_match($pattern, $where) == 1) ? 'id' : 'email';
+
+        $set = '';
+        $x   =  1;
+
+        foreach ($fields as $name => $value){
+
+            $set .= "{$name} = ?";
+
+            if($x < count($fields)){
+
+                $set .= ', ';
+            }
+            $x++;
+        }
+
+
+
+        $sql = "UPDATE {$this->table} SET {$set} WHERE {$column} = '{$where}'";
+
+         //dd($fields);
         if(!$this->query($sql, $fields)->error()){
 
             return true;

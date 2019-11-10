@@ -1,3 +1,6 @@
+<?$title_for_site = 'Encounter'?>
+
+
 <div class="bg-light">
 
     <div class="container">
@@ -6,7 +9,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="row">
-                            <div class="mx-auto mt-4"><a href="index.php"><img src="images/Logo45.png" style="width: 150px; height: 30px; margin-bottom: 50px;"></a></div>
+                            <div class="mx-auto mt-4"><a href="/"><img src="<?=assets('images.Logo45')?>" style="width: 150px; height: 30px; margin-bottom: 50px;"></a></div>
                         </div>
 
                         <div class="row">
@@ -22,57 +25,54 @@
                             </div>
                         </div>
 
-                        <?php include 'includes/message_flash.php'?>
+                        <div class="result"></div>
+                        <?= ($this->message_flash('message')) ? $this->message_flash('message') : ''?>
 
                         <div class="row mb-4">
                             <h4 class="mx-auto">Crée un profil</h4>
                         </div>
                         <div class="row mb-3">
-                            <form class="col-sm-12" method="post" action="" id="form-register">
+                            <form class="col-sm-12" method="post" action="/user/register" id="form-register">
                                 <div class="form-group row mb-4">
                                     <div class="col-sm-12">
-                                        <input type="text" name="name" class="row form-control" id="name" value="<?= $validate->post('name')?>" placeholder="Prénom" pattern="^-?[a-zA-Z\ ]+$"/>
-                                        <span class="text-danger error-name font-italic"><?= $validate->error("name")?></span>
+                                        <input type="text" name="name" class="row form-control" id="name" value="<?= $this->post('name')?>" placeholder="Prénom" pattern="^-?[a-zA-Z\ ]+$"/>
+                                        <span class="text-danger error-name font-italic"><?= $this->error("name")?></span>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <div class="col-sm-4">
-                                        <select name="day" id="day" class="row form-control" style="<?= ($validate->error('day')) ? "border-color : red" : ''?>">
+                                        <select name="day" id="day" class="row form-control" style="<?= ($this->error('day')) ? "border-color : red" : ''?>">
                                             <option>Jour...</option>
 
-                                            <?php for($i = 1; $i <= 31; $i++)
-                                            {
-                                                ?>
-                                                <option value="<?=$i?>" <?=(isset($_POST['day']) && $_POST['day'] == $i)? 'selected = selected' : ''?>><?=$i?></option>
-                                                <?php
-                                            }
-                                            ?>
+                                            <?php for($i = 1; $i <= 31; $i++):?>
+
+                                                <option value="<?=$i?>" <?=($this->post('day') === $i)? 'selected' : ''?>><?=$i?></option>
+
+                                            <?php endfor;?>
 
                                         </select>
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <select class="row form-control" id="month" name="month" style="<?= ($validate->error('month')) ? "border-color : red" : ''?>">
+                                        <select class="row form-control" id="month" name="month" style="<?= ($this->error('month')) ? "border-color : red" : ''?>">
                                             <option>Mois...</option>
 
-                                            <?php foreach ($validate->months as $key => $month)
-                                            {
-                                                ?>
-                                                <option value="<?=$key?>" <?=(isset($_POST['month']) && $_POST['month'] == $key)? 'selected = selected' : ''?>><?=$month?></option>
-                                                <?php
-                                            }
-                                            ?>
+                                            <?php foreach ($this->months as $key => $month):?>
+
+                                                <option value="<?=$key?>" <?=($this->post('month') === $key)? 'selected' : ''?>><?=$month?></option>
+
+                                            <?php endforeach;?>
 
                                         </select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" name="year" id="year" class="row form-control"  placeholder="Année..." value="<?= $validate->post('year')?>" pattern="^(19|20)[0-9]{2}" style="<?= ($validate->error('year')) ? "border-color : red" : ''?>"/>
+                                        <input type="text" name="year" id="year" class="row form-control"  placeholder="Année..." value="<?= $this->post('year')?>" pattern="^(19|20)[0-9]{2}" style="<?= ($this->error('year')) ? "border-color : red" : ''?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <div class="col-sm-12">
-                                        <input type="search" name="location" class="row form-control" id="location" placeholder="Saisir ton emplacement"  value="<?= $validate->post('location')?>">
-                                        <span class="text-danger error-location font-italic"><?= $validate->error("location")?></span>
+                                        <input type="search" name="location" class="row form-control" id="location" placeholder="Saisir ton emplacement"  value="<?= $this->post('location')?>">
+                                        <span class="text-danger error-location font-italic"><?= $this->error("location")?></span>
                                         <small id="emailHelp" class="form-text text-muted ml-3">p. ex. cotonou, Benin</small>
                                     </div>
                                 </div>
@@ -80,38 +80,38 @@
 
 
                                 <div class="form-check form-check-inline mb-4 mr-5">
-                                    <input class="form-check-input" type="radio" name="sexy" id="inlineRadio1" value="male" <?=(isset($_POST['sexy']) && $_POST['sexy'] == 'male')? 'checked' : ''?>>
+                                    <input class="form-check-input" type="radio" name="sexy" id="inlineRadio1" value="male" <?=($this->post('sexy') === 'male')? 'checked' : ''?>/>
                                     <label class="form-check-label" for="inlineRadio1">Homme</label>
                                 </div>
                                 <div class="form-check form-check-inline mb-4" id="radio">
-                                    <input class="form-check-input" type="radio" name="sexy" id="inlineRadio2" value="female" <?=(isset($_POST['sexy']) && $_POST['sexy'] == 'female')? 'checked' : ''?>>
+                                    <input class="form-check-input" type="radio" name="sexy" id="inlineRadio2" value="female" <?=($this->post('sexy') === 'female')? 'checked' : ''?>/>
                                     <label class="form-check-label" for="inlineRadio2">Femme</label>
                                 </div>
-                                <span class="text-danger error-sex font-italic"><?= $validate->error("sexy")?></span>
+                                <span class="text-danger error-sex font-italic"><?= $this->error("sexy")?></span>
 
                                 <div class="form-group row mb-4">
                                     <div class="col-sm-12">
-                                        <input type="text" name="email_or_phone" class="row form-control" id="email" placeholder="E-mail ou numéro de téléphone" value="<?= $validate->post('email_or_phone')?>" />
-                                        <span class="text-danger error-email font-italic"><?= $validate->error("email_or_phone")?></span>
+                                        <input type="text" name="email_or_phone" class="row form-control" id="email" placeholder="E-mail ou numéro de téléphone" value="<?= $this->post('email_or_phone')?>" />
+                                        <span class="text-danger error-email font-italic"><?= $this->error("email_or_phone")?></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <input type="password" name="password" class="row form-control" id="password" placeholder="Crée ton mot de passe" value="<?= $validate->post('password')?>"/>
-                                        <span class="text-danger error-password font-italic"><?= $validate->error("password")?></span>
+                                        <input type="password" name="password" class="row form-control" id="password" placeholder="Crée ton mot de passe" value="<?= $this->post('password')?>"/>
+                                        <span class="text-danger error-password font-italic"><?= $this->error("password")?></span>
                                         <small id="emailHelp" class="form-text text-muted ml-3">Le mot de passe doit comprendre au moins 5 caractères</small>
                                     </div>
                                 </div>
                                 <div class="singin-btn-validate" style="margin-left: 50px;">
-                                    <button type="submit" class="btn btn-primary" role="button">S'inscrire</button>
+                                    <button type="submit"  name="register" class="btn btn-primary" role="button">S'inscrire</button>
                                 </div>
-                                <p style="margin-left: 50px;" class="mt-2"><a href="" style="color: #b6b6b6;">Mot de passe oublié ?</a></p>
+                                <p style="margin-left: 50px;" class="mt-2"><a href="/user/password_forget" style="color: #b6b6b6;">Mot de passe oublié ?</a></p>
                             </form>
                         </div>
                         <small class="row text-center" style="font-size: 10px; text-align: center;">En continuant, tu confirmes avoir lu et accepté nos Conditions Générales d'Utilisation, notre Politique de Confidentialité ainsi que notre Politique en matière de Cookies</small>
 
                         <div class="row">
-                            <p class="mx-auto mt-2">Déjà membre ? <a href="?view=login">Connecte-toi</a></p>
+                            <p class="mx-auto mt-2">Déjà membre ? <a href="/user/login">Connecte-toi</a></p>
                         </div>
                     </div>
 
@@ -127,7 +127,7 @@
                                 <header class="col-12">
                                     <div class="row d-none d-sm-block d-lg-none">
                                         <nav class="col-12 navbar navbar-expand-sm navbar-light">
-                                            <a href="index.php"><img src="images/Logo45.png" style="width: 150px; height: 30px;"></a>
+                                            <a href="/"><img src="<?=assets('images.Logo45')?>" style="width: 150px; height: 30px;"></a>
 
                                             <div class="collapse navbar-collapse">
                                                 <div class="nav-item">
@@ -136,7 +136,7 @@
 
                                                 <ul class="navbar-nav ml-auto">
                                                     <li class="nav-item">
-                                                        <a class="btn mb-3 bg-dark font-weight-bold text-white" href="singup.php" role="button"><i class="fa fa-envelope-square" aria-hidden="true"></i> Creer un profil</a>
+                                                        <a class="btn mb-3 bg-dark font-weight-bold text-white" href="/user/register" role="button"><i class="fa fa-envelope-square" aria-hidden="true"></i> Creer un profil</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <div class="">
@@ -176,7 +176,7 @@
                                                     <h4>
                                                         <a href="" class="nav-link">
                                                             <span><?=$first->name?></span>,
-                                                            <span><?=$age?></span></a>
+                                                            <span><?=$first->age?></span></a>
                                                     </h4>
                                                     <span><a href="" class="nav-link">
                                             <span>O</span>
@@ -204,7 +204,7 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="mb-5" style=" background-color: #333;">
-                                        <img src="images/imag.jpg" class=" mx-auto b-block" style="">
+                                        <img src="<?=assets('images.imag')?>" class=" mx-auto b-block" style="">
                                     </div>
                                 </div>
 
@@ -232,6 +232,7 @@
 
             <?php foreach ($users as $user)
             {
+
             ?>
 
             <div class="col-lg-9 d-none" style="">
@@ -240,7 +241,7 @@
                     <header class="col-12">
                         <div class="row d-none d-sm-block d-lg-none">
                             <nav class="col-12 navbar navbar-expand-sm navbar-light">
-                                <a href="index.php"><img src="images/Logo45.png" style="width: 150px; height: 30px;"></a>
+                                <a href="/"><img src="<?=assets('images.Logo45')?>" style="width: 150px; height: 30px;"></a>
 
                                 <div class="collapse navbar-collapse">
                                     <div class="nav-item">
@@ -249,7 +250,7 @@
 
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item">
-                                            <a class="btn mb-3 bg-dark font-weight-bold text-white" href="singup.php" role="button"><i class="fa fa-envelope-square" aria-hidden="true"></i> Creer un profil</a>
+                                            <a class="btn mb-3 bg-dark font-weight-bold text-white" href="/user/register" role="button"><i class="fa fa-envelope-square" aria-hidden="true"></i> Creer un profil</a>
                                         </li>
                                         <li class="nav-item">
                                             <div class="">
@@ -285,11 +286,12 @@
                                     <sup class="nav-item">
                                         <div style="background-color: red; border-radius: 100px; padding: 5px;"></div>
                                     </sup>
+
                                     <div class="nav-item">
                                         <h4>
                                             <a href="" class="nav-link">
                                                 <span><?=$user->name?></span>,
-                                                <span><?=$all->getAge(format_date($user))?></span></a>
+                                                <span><?=$this->getAge($user)?></span></a>
                                         </h4>
                                         <span><a href="" class="nav-link">
                                             <span>O</span>
@@ -317,7 +319,7 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="mb-5" style=" background-color: #333;">
-                                <img src="images/imag.jpg" class=" mx-auto b-block" style="">
+                                <img src="<?=assets('images.imag')?>" class=" mx-auto b-block" style="">
                             </div>
                         </div>
 
@@ -352,6 +354,7 @@
 
     </div>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="js/encounter.js"></script>
-<script src="js/register.js"></script>
+
+<script src="<?=assets('js.encounter')?>"></script>
+<script src="<?=assets('js.register')?>"></script>
+

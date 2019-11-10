@@ -73,7 +73,8 @@
                             </div>
                         </div>
 
-                        <div class="row alert alert-info error-save"></div>
+                        <div class="result"></div>
+                        <?= ($this->message_flash('message')) ? $this->message_flash('message') : ''?>
 
                         <div class="row singupPage-home py-5 pl-sm-5">
                             <div class="col-12">
