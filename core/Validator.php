@@ -356,7 +356,10 @@ class Validator extends Book
             $extension = strtolower(end($detach));
 
             if(in_array($extension, $extensions)){
-
+              
+              if($file_error == 0){
+                
+              
                 $file_size = $file['size'];
                 if($file_size <= 3200000){
 
@@ -386,6 +389,11 @@ class Validator extends Book
 
                     $this->errors[$name] = "The file exceeds 32 Mo";
                 }
+                
+             }else{
+               
+               $this->errors[$name] = "Errored with code $file_error";
+             }
 
             }else{
                 $this->errors[$name] = "The file is not allowed";
