@@ -53,13 +53,19 @@
                 <div class="row">
 
                     <div class="col-12 bg-light">
-                        <div class="row mt-3">
-                            <a href="" class='col-3'><img src="<?=assets('images.avatar')?>" class='img-fluid' ></a>
+                        <form method="post" action="/profile/upload" enctype="multipart/form-data">
+                            <div class="row mt-3">
 
-                            <a href="" class="nav-link text-dark col-9">
-                                <span class='font-weight-bold'><?=$user->name?></span>
-                            </a>
-                        </div>
+                                <a href="#" class='col-3'><img src="<?= ($profile->name)?  assets("storage.{$profile->name}") : assets("storage.avatar")?>" class='img-fluid'></a>
+
+                                <a href="" class="nav-link text-dark col-9">
+                                    <span class='font-weight-bold'><?=$user->name?></span>
+                                </a>
+                                <input type="file" name="file" id="imgInp"/>
+                                <label for="imgInp" class="label-file" title="Choisir un fichier">Changer photo</label>
+                                <button type="submit" class="btn btn-mob1 text-info d-none">Telecharger</button>
+                            </div>
+                        </form>
 
                         <hr class='row bg-secondary my-5'>
 
@@ -98,7 +104,7 @@
                             <a href="" class='nav-link text-dark'>Elle vous like</a>
                         </div>
                         <div class='row'>
-                            <a href="?view=logout" class='nav-link text-dark d-sm-none'>Deconexion</a>
+                            <a href="/user/logout" class='nav-link text-dark d-sm-none'>Deconexion</a>
                         </div>
                     </div>
 
@@ -124,6 +130,7 @@
                                 <span class="text-info">  <?=($user->birthDay)?>  </span>
                             </a>
                         </h4>
+
 
                     </div>
                 </div>
@@ -153,4 +160,6 @@
     </div>
 </div>
 
+
+<script src="<?=assets('js.profile')?>"></script>
 <?endif;?>

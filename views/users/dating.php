@@ -38,7 +38,7 @@
                                 <div class="result"></div>
                                 <?= ($this->message_flash('message')) ? $this->message_flash('message') : ''?>
 
-                                <form class="col-sm-12" method="post" action="" id="form-register">
+                                <form class="col-sm-12" method="post" action="/user/register" id="form-register">
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-12">
                                             <input type="text" name="name" class="row form-control" id="name" value="<?= $this->post('name')?>" placeholder="Prénom" pattern="^-?[a-zA-Z\ ]+$"/>

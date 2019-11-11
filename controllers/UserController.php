@@ -39,8 +39,22 @@ class UserController extends Controller
 
                             Session::set('email', $user->email);
                             Session::set('name', $user->name);
+                            Session::set('id', $user->id);
                             Session::set('password', $this->post('password'));
                             Session::set('remember', $this->remember('remember'));
+
+
+                            $online = new Online();
+
+                            $row = $online->find(['user_id', '=', $user->id]);
+                            $created_at = date('Y-m-d H:i:s');
+
+                            if(count($row) == 0){
+                                $online->insert(['user_id' => $user->id, 'active' => 1, 'created_at' => $created_at]);
+                            }else{
+                                $online->update(['user_id', $user->id], ['active' => 1, 'created_at' => $created_at]);
+                            }
+
 
                             if($_POST['ajax'] === 'true'){
 
@@ -111,7 +125,7 @@ class UserController extends Controller
             $email      = $this->email_or_phone('email_or_phone');
             $password   = $this->password('password');
             $checkdate  = $this->check_date($month, $day, $year);
-            $created_at = time();
+            $created_at = date('Y-m-d H:i:s');
 
             //dd($this->success());
 
@@ -295,7 +309,7 @@ class UserController extends Controller
                     $row = $reset_password->builderGet(['email', '=', $email, 'AND', 'token', '=', $token]);
                     if(count($row) === 1){
 
-                        $update = $user->update($email, ['password' => $password]);
+                        $update = $user->update(['email', $email], ['password' => $password]);
                         header('Location:/user/login');
                     }else
                         $this->flash['message'] = "<div class='alert alert-danger'>Try again later</div>";

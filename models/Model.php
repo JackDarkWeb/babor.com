@@ -36,12 +36,18 @@ abstract class Model extends Db
 
     public function findById($id)
     {
-        return ($this->action('SELECT *', $this->table, ['id', '=', $id])
-            ->results()[0]);
+        return current($this->action('SELECT *', $this->table, ['id', '=', $id])
+            ->results());
     }
     public function find(array $where){
         return $this->action('SELECT *', $this->table, $where)
             ->results()[0];
+    }
+
+    function get($where){
+
+        return $this->action('SELECT *', $this->table, $where)
+            ->results();
     }
 
     /**
@@ -94,7 +100,7 @@ abstract class Model extends Db
 
             if(in_array($operator, $operators)){
 
-                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ? ";
+                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ? ORDER BY id DESC";
 
                 if(!$this->query($sql, [$value])->error()){
 
@@ -197,8 +203,8 @@ abstract class Model extends Db
      */
     function update($where, $fields = []){
 
-        $pattern = "/^[0-9]+$/";
-        $column = (preg_match($pattern, $where) == 1) ? 'id' : 'email';
+        $column  = $where[0];
+        $val     = (is_numeric($where[1])) ? $where[1] : "'$where[1]'";
 
         $set = '';
         $x   =  1;
@@ -216,9 +222,9 @@ abstract class Model extends Db
 
 
 
-        $sql = "UPDATE {$this->table} SET {$set} WHERE {$column} = '{$where}'";
+        $sql = "UPDATE {$this->table} SET {$set} WHERE {$column} = $val";
 
-         //dd($fields);
+
         if(!$this->query($sql, $fields)->error()){
 
             return true;

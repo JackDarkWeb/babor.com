@@ -360,8 +360,9 @@ class Validator extends Book
                 $file_size = $file['size'];
                 if($file_size <= 3200000){
 
-                    $new_name = strtolower($this->alphaNumCode(3).'.'.$extension);
                     $new_name_db = strtolower($this->alphaNumCode(3));
+                    $new_name = $new_name_db.'.'.$extension;
+
 
                     $tmp_name = $file['tmp_name'];
 

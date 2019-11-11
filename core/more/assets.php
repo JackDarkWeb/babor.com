@@ -17,10 +17,13 @@ function assets($file){
         $tmp_file     = $detach[1];
         $folders  = scandir(PUBLIC_FOLDER);
 
+
         if(in_array($folder, $folders)){
 
 
             $files        = scandir($folder);
+
+
 
             $new_file    = [];
             $extension_file    = [];
@@ -32,14 +35,19 @@ function assets($file){
                     $extension_file[] = end(explode('.', $value));
                 }
             }
+
             $extension_file = array_unique($extension_file);
+
 
             foreach ($extension_file as $ext){
 
                 if(in_array($tmp_file.'.'.$ext, $files)){
-                    $file = $tmp_file.'.'.$ext;
+
+                    $file =  $tmp_file.'.'.$ext;
                 }
             }
+
+
 
            if(in_array($file, $files))
                return DS.'public'.DS.$folder.DS.$file;

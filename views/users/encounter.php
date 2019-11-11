@@ -176,7 +176,7 @@
                                                     <h4>
                                                         <a href="" class="nav-link">
                                                             <span><?=$first->name?></span>,
-                                                            <span><?=$first->age?></span></a>
+                                                            <span><?=$this->getAge($first)?></span></a>
                                                     </h4>
                                                     <span><a href="" class="nav-link">
                                             <span>O</span>
