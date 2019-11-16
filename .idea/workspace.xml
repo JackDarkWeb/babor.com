@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8019a32-e1f3-469d-9326-268037cc0161" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/Online.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Picture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/profile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/storage/avatar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/CalculateAge.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/jackd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/jackd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UML.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/UML.mwb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UML.mwb.bak" beforeDir="false" afterPath="$PROJECT_DIR$/UML.mwb.bak" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/EncounterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/EncounterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Book.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Book.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Validator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/more/assets.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/more/assets.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/users/dating.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/users/dating.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/users/encounter.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/users/encounter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/users/profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/users/profile.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +74,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/storage" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tests" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
   </component>
   <component name="RecentsManager">
@@ -136,6 +124,11 @@
       <workItem from="1573451981027" duration="10131000" />
       <workItem from="1573469338010" duration="2203000" />
       <workItem from="1573473005555" duration="8474000" />
+      <workItem from="1573569090266" duration="2425000" />
+      <workItem from="1573633822945" duration="691000" />
+      <workItem from="1573653896368" duration="269000" />
+      <workItem from="1573805303759" duration="599000" />
+      <workItem from="1573913713067" duration="558000" />
     </task>
     <servers />
   </component>
